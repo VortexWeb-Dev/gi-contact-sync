@@ -102,8 +102,14 @@ function processEntity($id, $type, $logFile)
 
         $contactData = [
             'NAME' => $entity[$fieldMapping[$type]['NAME']] ?? '',
-            'EMAIL' => [['VALUE_TYPE' => 'WORK', 'VALUE' => $entity[$fieldMapping[$type]['EMAIL']] ?? '']],
-            'PHONE' => [['VALUE_TYPE' => 'WORK', 'VALUE' => $entity[$fieldMapping[$type]['PHONE']] ?? '']],
+            'EMAIL' => [[
+                'VALUE_TYPE' => 'WORK',
+                'VALUE' => is_array($entity[$fieldMapping[$type]['EMAIL']]) ? reset($entity[$fieldMapping[$type]['EMAIL']]) : ($entity[$fieldMapping[$type]['EMAIL']] ?? '')
+            ]],
+            'PHONE' => [[
+                'VALUE_TYPE' => 'WORK',
+                'VALUE' => is_array($entity[$fieldMapping[$type]['PHONE']]) ? reset($entity[$fieldMapping[$type]['PHONE']]) : ($entity[$fieldMapping[$type]['PHONE']] ?? '')
+            ]],
             'UF_CRM_637B1AE74AC23' => $entity[$fieldMapping[$type]['CUSTOM_FIELD']] ?? ''
         ];
 
