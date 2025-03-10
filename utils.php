@@ -107,7 +107,7 @@ function processEntity($id, $type, $logFile)
             'UF_CRM_637B1AE74AC23' => $entity[$fieldMapping[$type]['CUSTOM_FIELD']] ?? ''
         ];
 
-        logData($logFile, "Contact Data: " . print_r($contactData, true));
+        logData('contact.log', "Contact Data: " . print_r($contactData, true));
 
         $contactId = createContact($contactData);
         if (!$contactId) {
@@ -117,7 +117,7 @@ function processEntity($id, $type, $logFile)
         $updateData = ['CONTACT_ID' => $contactId];
         $response = ($type === 'lead') ? updateLead($id, $updateData) : updateDeal($id, $updateData);
 
-        logData($logFile, "Updated " . ucfirst($type) . " Data: " . print_r($response, true));
+        logData('update.log', "Updated " . ucfirst($type) . " Data: " . print_r($response, true));
     } catch (Exception $e) {
         respondWithError(ucfirst($type) . ' Fetch Error', $e->getMessage());
     }
